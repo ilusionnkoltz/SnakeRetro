@@ -1,0 +1,145 @@
+/* Estilo retrô/CRT com vibe "terminal verde" sem fontes externas */
+:root{
+  --green: #1cff66;
+  --dark:  #0a0f0c;
+  --panel: #0f1915;
+  --line:  #163025;
+  --accent:#1ec8ff;
+  --danger:#ff4477;
+  --scan:  rgba(0,0,0,.15);
+}
+
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  background: radial-gradient(1200px 700px at 50% 40%, #11251b, #09110d 60%, #060907);
+  color: var(--green);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  letter-spacing: .5px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Moldura do “monitor” */
+.frame{
+  width: min(92vw, 820px);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.2)),
+    var(--panel);
+  border: 2px solid #0b1e16;
+  border-radius: 18px;
+  padding: 18px 18px 20px;
+  box-shadow:
+    inset 0 0 1px #0c2018,
+    0 10px 30px rgba(0,0,0,.5),
+    0 0 80px rgba(28,255,102,.07);
+  position: relative;
+}
+
+/* Título e HUD */
+.hud{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.hud h1{
+  margin: 0;
+  font-size: clamp(18px, 4vw, 26px);
+  letter-spacing: 2px;
+}
+
+.blink{
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink {
+  0%, 49% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+.stats{
+  display: flex;
+  gap: 14px;
+  font-size: .9rem;
+}
+.stats strong{ color: #afffcb; }
+
+/* Controles */
+.controls{ display: flex; gap: 8px; }
+.controls button{
+  all: unset;
+  border: 1px solid var(--line);
+  background: #0a1411;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .05s ease, filter .15s ease;
+}
+.controls button:hover{ filter: brightness(1.1); }
+.controls button:active{ transform: translateY(1px); }
+#btnStart{ border-color: #1b3d2e; }
+#btnPause{ border-color: #2a2a2a; }
+#btnReset{ border-color: #3b1823; color: #ffb9c9; }
+
+/* Área do jogo */
+.viewport{
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(22,54,40,.2), rgba(15,25,21,.2));
+}
+
+canvas{
+  background: #000;
+  image-rendering: pixelated;
+  border: 2px solid #213b2e;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #0c2018, 0 0 40px rgba(0,0,0,.5) inset;
+}
+
+/* Mensagens dinâmicas */
+#msg{
+  position: absolute;
+  inset: auto 0 12px 0;
+  text-align: center;
+  color: #9ee7b7;
+  opacity: .9;
+  font-size: .9rem;
+}
+
+/* Dicas */
+.tips{ margin-top: 10px; color: #a7eec2; opacity: .85; font-size: .85rem; }
+
+/* Efeito CRT: scanlines e leve flicker */
+.crt{
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0,0,0,.06) 3px,
+      rgba(0,0,0,.06) 4px
+    );
+  mix-blend-mode: multiply;
+  opacity: .6;
+  animation: flick 8s ease-in-out infinite;
+}
+@keyframes flick {
+  0%, 100% { opacity: .6; }
+  50%      { opacity: .7; }
+}

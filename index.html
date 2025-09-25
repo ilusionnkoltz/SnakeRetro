@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake Retro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- camada de efeito CRT -->
+  <div class="crt"></div>
+
+  <main class="frame">
+    <header class="hud">
+      <h1>SNΛKE<span class="blink">_</span></h1>
+
+      <div class="stats">
+        <span>Pontos: <strong id="score">0</strong></span>
+        <span>Melhor: <strong id="best">0</strong></span>
+        <span>Velocidade: <strong id="speed">1</strong></span>
+      </div>
+
+      <div class="controls">
+        <button id="btnStart" type="button">Iniciar</button>
+        <button id="btnPause" type="button">Pausar</button>
+        <button id="btnReset" type="button">Reiniciar</button>
+      </div>
+    </header>
+
+    <section class="viewport">
+      <canvas id="game" width="400" height="400" aria-label="Tela do jogo"></canvas>
+      <div id="msg" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer class="tips">
+      <p>Use as setas do teclado para mover. Não é permitido inverter 180° imediatamente. Coma ● para crescer. Barra de espaço inicia/pausa.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
